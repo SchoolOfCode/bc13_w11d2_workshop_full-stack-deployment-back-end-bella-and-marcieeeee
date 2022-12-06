@@ -10,8 +10,8 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { listItem } = req.body;
-  const result = await postListItem(listItem);
+  const { listItem, completed } = req.body;
+  const result = await postListItem(listItem, completed);
   res.status(201).json({ success: true, payload: result });
 });
 
