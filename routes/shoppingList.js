@@ -1,13 +1,22 @@
 import express from "express";
-import { getShoppingList, postListItem, updateCompleted} from "../models/shoppingList.js";
+import { getShoppingList,getShoppingByCompleted, postListItem, updateCompleted} from "../models/shoppingList.js";
 
 const router = express.Router();
 
 /* GET shopping list. */
 router.get("/", async (req, res) => {
-  const data = await getShoppingList();
+  const completed = req.query.completed;
+  
+  let data 
+  if (completed!==undefined){
+    console.log (completed)
+    data = await getShoppingByCompleted(completed);
+  } else{
+   data = await getShoppingList();}
   res.json({ success: true, payload: data });
 });
+
+
 
 router.post("/", async (req, res) => {
   const { listItem, completed } = req.body;

@@ -6,6 +6,10 @@ export async function getShoppingList() {
   return data.rows;
 }
 
+export async function getShoppingByCompleted(completed) {
+  const data = await pool.query("SELECT * FROM shopping WHERE completed = $1;", [completed]);
+  return data.rows;
+}
 export async function postListItem(listItem) {
   const { item, completed } = listItem;
   const data = await pool.query(
